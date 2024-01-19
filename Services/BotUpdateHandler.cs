@@ -8,7 +8,6 @@ using Telegram.Bot.Types.InputFiles;
 #pragma warning disable
 
 namespace Exam.Services;
-
 public partial class BotUpdateHandler : IUpdateHandler
 {
     const string chat_id = "-1002024296076";
@@ -37,7 +36,9 @@ public partial class BotUpdateHandler : IUpdateHandler
 
                 if (update.Message!.Text == "/start")
                     {
-                        await botClient.SendTextMessageAsync(update.Message.Chat.Id, "  Assalomu Aleykum Botga Xush kelibsiz\nImtihon natijasini bilish uchun O'zingizga tegishli bo'lgan ID ni kiriting. ", cancellationToken: cancellationToken);
+                        await botClient.SendTextMessageAsync(update.Message.Chat.Id, " Assalomu Aleykum Botga Xush kelibsiz\n"+
+"Imtihon natijasini bilish uchun O'zingizga tegishli bo'lgan ID ni kiriting. \n\n\n\n"+"Assalomu Aleykum Botga Xush kelibsiz\n"+
+"2-CHSB natijasini bilish uchun O'zingizga tegishli bo'lgan ID ni kiriting.", cancellationToken: cancellationToken);
                         return;
                     }
 
@@ -57,21 +58,31 @@ public partial class BotUpdateHandler : IUpdateHandler
                             }
                             else
                             {
-                                var message =  await botClient.SendTextMessageAsync(update.Message.Chat.Id, "Iltimos kuting ... ", cancellationToken: cancellationToken);
-                                var messageId = message.MessageId;
-                                
-                                //remove D:/ from path
-                                var path = student.photoPath!.Substring(3);
-                                // put E:/ instead of D:/
-                                path = student.photoPath!.Replace("D:/", "E:/");
-                                using (var photoStream = new FileStream(path, FileMode.Open))
+                                try
                                 {
-                                        var photo = new InputOnlineFile(photoStream);
-                                        await botClient.DeleteMessageAsync(update.Message.Chat.Id, messageId, cancellationToken: cancellationToken);
-                                        await botClient.SendPhotoAsync(update.Message.Chat.Id, photo, student.StudentString, cancellationToken: cancellationToken);
+                                    var message =  await botClient.SendTextMessageAsync(update.Message.Chat.Id, "Iltimos kuting ... ", cancellationToken: cancellationToken);
+                                    var messageId = message.MessageId;
+                                    
+                                    if(student.photoPath is null)
+                                    {
+                                        await botClient.SendTextMessageAsync(update.Message.Chat.Id, "Bu Id bilan bizda malumot topilmadi. ", cancellationToken: cancellationToken);
+                                        return;
+                                    }
+                                    //remove D:/ from path
+                                    _logger.LogInformation("==================>");
+                                    using (var photoStream = new FileStream(student.photoPath, FileMode.Open))
+                                    {
+                                            var photo = new InputOnlineFile(photoStream);
+                                            await botClient.DeleteMessageAsync(update.Message.Chat.Id, messageId, cancellationToken: cancellationToken);
+                                            await botClient.SendPhotoAsync(update.Message.Chat.Id, photo, student.StudentString, cancellationToken: cancellationToken);
+                                    }
+                                    //SaveToCache(update.Message.Chat.Id);
+                                    return;
                                 }
-                                //SaveToCache(update.Message.Chat.Id);
-                                return;
+                                catch(System.Exception ex)
+                                {
+                                    throw new Exception(ex.Message);
+                                }
                             }
                         }
                         
@@ -85,7 +96,8 @@ public partial class BotUpdateHandler : IUpdateHandler
 
                               var message =  await botClient.SendTextMessageAsync(chatId, "Iltimos kutib ... ", cancellationToken: cancellationToken);
                               var messageId = message.MessageId;
-                              using (var photoStream = new FileStream(student.photoPath!, FileMode.Open))
+                              _logger.LogInformation("==================>");
+                              using (var photoStream = new FileStream(student.photoPath, FileMode.Open))
                                 {
                                         var photo = new InputOnlineFile(photoStream);
                                         await botClient.DeleteMessageAsync(update.Message.Chat.Id, messageId, cancellationToken: cancellationToken);
