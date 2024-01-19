@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "F5QV3X0o48KkqIomz3D5ATP9Z503dxie2mIXt1d7tSvncCPs9KiVgcbYe8HXD1bps9dlkbwLlppUFeTVrT0YDg==",
+  "dgSpecHash": "XawcGXl6/Izdu4keR2B+7kkhPuj0SJLL+dTwJPGBKn3xdxfDkeMhhSGJIuyPSGIASKSXfJ0N8e1I2243e6Lz7A==",
   "success": true,
-  "projectFilePath": "D:\\TelegramBot\\Exam\\Exam.csproj",
+  "projectFilePath": "d:\\TelegramBot\\Exam\\Exam.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Acer\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.5\\microsoft.aspnetcore.openapi.7.0.5.nupkg.sha512",
     "C:\\Users\\Acer\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",

@@ -1,16 +1,15 @@
 using System.Text.Json;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.OpenApi.Models;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InputFiles;
-#pragma warning disable 
+#pragma warning disable
 
 namespace Exam.Services;
 
-public class BotUpdateHandler : IUpdateHandler
+public partial class BotUpdateHandler : IUpdateHandler
 {
     const string chat_id = "-1002024296076";
     private readonly ILogger<BotUpdateHandler> _logger;
@@ -60,7 +59,12 @@ public class BotUpdateHandler : IUpdateHandler
                             {
                                 var message =  await botClient.SendTextMessageAsync(update.Message.Chat.Id, "Iltimos kuting ... ", cancellationToken: cancellationToken);
                                 var messageId = message.MessageId;
-                                using (var photoStream = new FileStream(student.photoPath!, FileMode.Open))
+                                
+                                //remove D:/ from path
+                                var path = student.photoPath!.Substring(3);
+                                // put E:/ instead of D:/
+                                path = student.photoPath!.Replace("D:/", "E:/");
+                                using (var photoStream = new FileStream(path, FileMode.Open))
                                 {
                                         var photo = new InputOnlineFile(photoStream);
                                         await botClient.DeleteMessageAsync(update.Message.Chat.Id, messageId, cancellationToken: cancellationToken);
@@ -87,6 +91,7 @@ public class BotUpdateHandler : IUpdateHandler
                                         await botClient.DeleteMessageAsync(update.Message.Chat.Id, messageId, cancellationToken: cancellationToken);
                                         await botClient.SendPhotoAsync(chatId, photo, student.StudentString, cancellationToken: cancellationToken);
                                 }
+                                
                                 DeleteFromCache(update.Message.Chat.Id);
                                 return;
                             }

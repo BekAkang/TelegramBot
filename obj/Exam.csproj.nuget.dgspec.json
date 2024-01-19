@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\TelegramBot\\Exam\\Exam.csproj": {}
+    "d:\\TelegramBot\\Exam\\Exam.csproj": {}
   },
   "projects": {
-    "D:\\TelegramBot\\Exam\\Exam.csproj": {
+    "d:\\TelegramBot\\Exam\\Exam.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\TelegramBot\\Exam\\Exam.csproj",
+        "projectUniqueName": "d:\\TelegramBot\\Exam\\Exam.csproj",
         "projectName": "Exam",
-        "projectPath": "D:\\TelegramBot\\Exam\\Exam.csproj",
+        "projectPath": "d:\\TelegramBot\\Exam\\Exam.csproj",
         "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
-        "outputPath": "D:\\TelegramBot\\Exam\\obj\\",
+        "outputPath": "d:\\TelegramBot\\Exam\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
